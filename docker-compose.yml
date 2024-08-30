@@ -1,0 +1,45 @@
+version: '3'
+services:
+    api:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                RUN_UID: ${USERID}
+        restart: always
+        container_name: "discounts_php"
+        networks:
+            - teamleader-discounts-network
+        volumes:
+            - "./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+            - "./:/webapp/app"
+            - ./docker/.zshrc:/webapp/.zshrc
+            - ./docker/.bashrc:/webapp/.bashrc
+        ports:
+            - "8080:8080"
+    mysql:
+      image: mysql:8.4
+      container_name: discounts_mysql
+      environment:
+        MYSQL_DATABASE: ${MYSQL_DB}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_ROOT_PASSWORD: 'TLca&12345'
+      env_file:
+        - .env
+      ports:
+        - "3306:3306"
+      restart: always
+      volumes:
+        - discounts-mysql-data:/var/lib/mysql
+        - ./config/build/docker-init/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      networks:
+          - teamleader-discounts-network
+
+networks:
+  teamleader-discounts-network:
+    external:
+      name: ext-teamleader-discounts-network
+
+volumes:
+  discounts-mysql-data:
