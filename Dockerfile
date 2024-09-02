@@ -47,6 +47,11 @@ RUN set -x && addgroup -g ${RUN_GID} ${RUN_GROUP} \
     && chmod 0440 /etc/sudoers.d/${RUN_USER} \
     && chown -R ${RUN_USER}:${RUN_GROUP} ${USER_HOME}
 
+RUN mkdir -p /var/log/nginx
+RUN chown ${RUN_USER} /var/log/nginx
+RUN mkdir -p /var/lib/nginx
+RUN chown ${RUN_USER} /var/lib/nginx
+
 # Run the following under the created user
 USER ${RUN_USER}
 
