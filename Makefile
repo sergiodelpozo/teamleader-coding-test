@@ -29,3 +29,7 @@ composer:
 .PHONY: start
 start:
 	@docker-compose up -d
+
+.PHONY: tests
+tests:
+	@docker-compose run --rm api vendor/bin/phpunit --testsuite Unit $(filter-out $@,$(MAKECMDGOALS))
