@@ -33,3 +33,16 @@ start:
 .PHONY: tests
 tests:
 	@docker-compose run --rm api vendor/bin/phpunit --testsuite Unit $(filter-out $@,$(MAKECMDGOALS))
+
+.PHONY: init
+init: ### Bootstrap the project
+        $(call init_project, $(ARGS))
+
+
+define init_projects
+        @docker network create ext-teamleader-discounts-network
+        @docker-compose up -d
+        @docker-compose run --rm api composer install
+        @docker-compose run --rm api vendor/bin/phinx migrate
+        @docker-compose run --rm api vendor/bin/phinx seed
+endef
