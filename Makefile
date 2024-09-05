@@ -36,13 +36,13 @@ tests:
 
 .PHONY: init
 init: ### Bootstrap the project
-        $(call init_project, $(ARGS))
+	$(call init_project, $(ARGS))
 
 
-define init_projects
-        @docker network create ext-teamleader-discounts-network
-        @docker-compose up -d
-        @docker-compose run --rm api composer install
-        @docker-compose run --rm api vendor/bin/phinx migrate
-        @docker-compose run --rm api vendor/bin/phinx seed
+define init_project
+	@docker network create ext-teamleader-discounts-network || true
+	@docker-compose up -d
+	@docker-compose run --rm api composer install
+	@docker-compose run --rm api vendor/bin/phinx migrate
+	@docker-compose run --rm api vendor/bin/phinx seed:run
 endef
