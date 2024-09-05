@@ -34,6 +34,10 @@ start:
 tests:
 	@docker-compose run --rm api vendor/bin/phpunit --testsuite Unit $(filter-out $@,$(MAKECMDGOALS))
 
+.PHONY: tests-integration
+tests-integration:
+	$(call integration_tests)
+
 .PHONY: init
 init: ### Bootstrap the project
 	$(call init_project, $(ARGS))
@@ -45,4 +49,9 @@ define init_project
 	@docker-compose run --rm api composer install
 	@docker-compose run --rm api vendor/bin/phinx migrate
 	@docker-compose run --rm api vendor/bin/phinx seed:run
+endef
+
+define integration_tests
+	@docker-compose run -e APP_ENV=testing --rm api vendor/bin/phinx migrate
+	@docker-compose run --rm api vendor/bin/phpunit --testsuite Integration
 endef

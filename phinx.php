@@ -1,6 +1,14 @@
 <?php
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$envFile = '.env';
+if ($_ENV['APP_ENV'] == 'production') {
+    $envFile = '.env.production';
+}
+elseif ($_ENV['APP_ENV'] == 'testing') {
+    $envFile = '.env.test';
+}
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, $envFile);
 $dotenv->load();
 
 return
