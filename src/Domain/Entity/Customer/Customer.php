@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Entity;
+namespace App\Domain\Entity\Customer;
 
 use App\Domain\ValueObject\Price\Price;
 

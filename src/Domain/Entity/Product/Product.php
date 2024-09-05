@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Entity;
+namespace App\Domain\Entity\Product;
 
+use App\Domain\Entity\Category\Category;
 use App\Domain\ValueObject\Price\Price;
 
 final class Product
