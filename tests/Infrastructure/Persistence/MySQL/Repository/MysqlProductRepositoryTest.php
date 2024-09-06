@@ -21,9 +21,9 @@ class MysqlProductRepositoryTest extends IntegrationTest
         $this->createCategory($product->getCategory());
         $this->createProduct($product);
 
-        $repository = new MysqlProductRepository($this->connection);
+        $sut = new MysqlProductRepository($this->connection);
 
-        $result = $repository->findById($product->getId());
+        $result = $sut->findById($product->getId());
 
         $this->assertEquals($product, $result);
     }
@@ -32,11 +32,11 @@ class MysqlProductRepositoryTest extends IntegrationTest
     public function findByIdGivenAProductIdThatNotExistsThrowsProductNotFoundException(): void
     {
         $product = ProductObjectMother::random();
-        $repository = new MysqlProductRepository($this->connection);
+        $sut = new MysqlProductRepository($this->connection);
 
         $this->expectException(ProductNotFound::class);
 
-        $repository->findById($product->getId());
+        $sut->findById($product->getId());
     }
 
     private function createProduct(Product $product): void
