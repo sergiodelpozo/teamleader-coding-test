@@ -1,4 +1,3 @@
-version: '3'
 services:
     api:
         build:
@@ -17,6 +16,9 @@ services:
             - ./docker/.bashrc:/webapp/.bashrc
         ports:
             - "8080:8080"
+        depends_on:
+          mysql:
+            condition: service_healthy
     mysql:
       image: mysql:8.4
       container_name: discounts_mysql
@@ -35,11 +37,15 @@ services:
         - ./config/build/docker-init/setup.sql:/docker-entrypoint-initdb.d/setup.sql
       networks:
           - teamleader-discounts-network
+      healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        timeout: 20s
+        retries: 10
 
 networks:
   teamleader-discounts-network:
-    external:
-      name: ext-teamleader-discounts-network
+    name: ext-teamleader-discounts-network
+    external: true
 
 volumes:
   discounts-mysql-data:
