@@ -7,9 +7,9 @@ namespace App\Domain\Entity\Category;
 final class Category
 {
     public function __construct(
-        private int $id,
-        private string $name,
-        private string $code,
+        private readonly int $id,
+        private readonly string $name,
+        private readonly string $code,
     ) {
     }
 

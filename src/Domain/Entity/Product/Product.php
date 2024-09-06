@@ -10,9 +10,9 @@ use App\Domain\ValueObject\Price\Price;
 final class Product
 {
     public function __construct(
-        private string $id,
-        private Price $unitPrice,
-        private Category $category,
+        private readonly string $id,
+        private readonly Price $unitPrice,
+        private readonly Category $category,
     ) {
     }
 

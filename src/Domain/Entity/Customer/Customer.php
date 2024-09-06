@@ -9,10 +9,10 @@ use App\Domain\ValueObject\Price\Price;
 final class Customer
 {
     public function __construct(
-        private int $id,
-        private string $name,
-        private \DateTimeImmutable $registerDate,
-        private Price $revenue,
+        private readonly int $id,
+        private readonly string $name,
+        private readonly \DateTimeImmutable $registerDate,
+        private readonly Price $revenue,
     ) {
     }
 
