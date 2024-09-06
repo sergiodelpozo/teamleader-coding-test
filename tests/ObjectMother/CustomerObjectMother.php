@@ -18,7 +18,7 @@ final class CustomerObjectMother
             id: $parameters['id'] ?? $faker->unique()->randomNumber(3),
             name: $parameters['name'] ?? $faker->name(),
             registerDate: $parameters['registerDate'] ?? new \DateTimeImmutable($faker->date()),
-            revenue: $parameters['revenue'] ?? new Price($faker->randomFloat(2)),
+            revenue: $parameters['revenue'] ?? new Price($faker->randomFloat(2, 0, 5000000)),
         );
     }
 
