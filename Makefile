@@ -38,6 +38,10 @@ tests:
 tests-integration:
 	$(call integration_tests)
 
+.PHONY: tests-all
+tests-all:
+	$(call all_tests)
+
 .PHONY: init
 init: ### Bootstrap the project
 	$(call init_project, $(ARGS))
@@ -54,4 +58,9 @@ endef
 define integration_tests
 	@docker-compose run -e APP_ENV=testing --rm api vendor/bin/phinx migrate
 	@docker-compose run --rm api vendor/bin/phpunit --testsuite Integration
+endef
+
+define all_tests
+	@docker-compose run -e APP_ENV=testing --rm api vendor/bin/phinx migrate
+	@docker-compose run --rm api vendor/bin/phpunit
 endef
