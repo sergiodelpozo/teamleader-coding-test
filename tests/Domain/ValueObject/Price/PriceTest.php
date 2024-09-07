@@ -48,6 +48,16 @@ final class PriceTest extends TestCase
 
         $this->assertEquals($expected, $newPrice->getPrice());
     }
+    
+    #[Test]
+    #[DataProvider('subtractDataProvider')]
+    public function subtractGivenValidNumberReturnsTheExpectedPrice(float $price, float $number, float $expected): void
+    {
+        $price = new Price($price);
+        $newPrice = $price->subtract($number);
+
+        $this->assertEquals($expected, $newPrice->getPrice());
+    }
 
     public static function pricesDataProvider(): array
     {
@@ -64,6 +74,16 @@ final class PriceTest extends TestCase
             'With a float value' => [100, 0.5, 50],
             'With a zero value' => [100, 0, 0],
             'With a decimal calculation' => [150.50, 1.5, 225.75],
+        ];
+    }
+
+    public static function subtractDataProvider(): array
+    {
+        return [
+            'With an integer value' => [100, 10, 90],
+            'With a float value' => [100.50, 10, 90.50],
+            'With a zero value' => [100, 0, 100],
+            'With negative value' => [100, -10, 110],
         ];
     }
 }

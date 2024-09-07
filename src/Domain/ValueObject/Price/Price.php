@@ -43,4 +43,12 @@ final class Price
 
         return new self($this->price * $multiplier);
     }
+
+    /**
+     * @throws InvalidPrice
+     */
+    public function subtract(float $number)
+    {
+        return new self($this->price - $number);
+    }
 }
