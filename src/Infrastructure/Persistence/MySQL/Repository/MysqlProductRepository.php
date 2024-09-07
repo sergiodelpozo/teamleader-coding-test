@@ -42,7 +42,6 @@ final class MysqlProductRepository implements ProductRepository
 
         return new Product(
             id: $data['id'],
-            unitPrice: new Price(\floatval($data['unit_price'])),
             category: $category
         );
     }

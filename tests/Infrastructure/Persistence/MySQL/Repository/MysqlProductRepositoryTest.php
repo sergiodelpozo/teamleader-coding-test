@@ -47,7 +47,6 @@ class MysqlProductRepositoryTest extends IntegrationTest
 
         $stmt->bindValue(':id', $product->getId());
         $stmt->bindValue(':category_id', $product->getCategory()->getId());
-        $stmt->bindValue(':unit_price', $product->getUnitPrice()->getPrice());
 
         $stmt->execute();
     }

@@ -21,8 +21,7 @@ final class ProductObjectMother
 
         return new Product(
             id: $parameters['id'] ?? "A" . $faker->randomNumber(3),
-            unitPrice: $parameters['unitPrice'] ?? new Price($faker->randomFloat(2, 0.50, 500)),
-            category:  $parameters['category'] ?? CategoryObjectMother::random()
+            category: $parameters['category'] ?? CategoryObjectMother::random()
         );
     }
 }

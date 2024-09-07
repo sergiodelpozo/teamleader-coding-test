@@ -11,7 +11,6 @@ final class Product
 {
     public function __construct(
         private readonly string $id,
-        private readonly Price $unitPrice,
         private readonly Category $category,
     ) {
     }
@@ -19,11 +18,6 @@ final class Product
     public function getId(): string
     {
         return $this->id;
-    }
-
-    public function getUnitPrice(): Price
-    {
-        return $this->unitPrice;
     }
 
     public function getCategory(): Category
