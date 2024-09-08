@@ -21,7 +21,7 @@ final class CategoryObjectMother
         return new Category(
             id: $parameters['id'] ?? $faker->unique()->randomNumber(5),
             name: $parameters['name'] ?? $faker->word(),
-            code: $faker->unique()->word
+            code: $parameters['code'] ?? $faker->unique()->word
         );
     }
 }

@@ -6,9 +6,11 @@ namespace App\Tests\Infrastructure\Persistence\MySQL\Repository;
 
 use App\Domain\Entity\Category\Category;
 use App\Domain\Entity\Product\Product;
+use App\Domain\Entity\Product\ProductCollection;
 use App\Domain\Entity\Product\ProductNotFound;
 use App\Infrastructure\Persistence\MySQL\Repository\MysqlProductRepository;
 use App\Tests\IntegrationTest;
+use App\Tests\ObjectMother\CategoryObjectMother;
 use App\Tests\ObjectMother\ProductObjectMother;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -39,9 +41,44 @@ class MysqlProductRepositoryTest extends IntegrationTest
         $sut->findById($product->getId());
     }
 
+    #[Test]
+    public function findByCategoryCodeGivenValidCategoryCodeReturnsAListOfProductsOfTheCategory(): void
+    {
+        $category = CategoryObjectMother::withParameters(['code' => 'test']);
+        $otherCategory = CategoryObjectMother::withParameters(['code' => 'other-category']);
+        $this->createCategory($category);
+        $this->createCategory($otherCategory);
+        $product = ProductObjectMother::withParameters([
+            'id' => 'T01',
+            'category' => $category
+        ]);
+        $secondProduct = ProductObjectMother::withParameters([
+            'id' => 'T02',
+            'category' => $category
+        ]);
+        $thirdProduct = ProductObjectMother::withParameters([
+            'id' => 'T03',
+            'category' => $otherCategory
+        ]);
+        $this->createProduct($product);
+        $this->createProduct($secondProduct);
+        $this->createProduct($thirdProduct);
+
+        $expected = new ProductCollection(
+            $product,
+            $secondProduct
+        );
+
+        $sut = new MysqlProductRepository($this->connection);
+
+        $products = $sut->findByCategoryCode('test');
+
+        $this->assertEquals($expected, $products);
+    }
+
     private function createProduct(Product $product): void
     {
-        $sql = 'INSERT INTO products (id, category_id, unit_price) VALUES (:id, :category_id, :unit_price)';
+        $sql = 'INSERT INTO products (id, category_id) VALUES (:id, :category_id)';
 
         $stmt = $this->connection->prepare($sql);
 

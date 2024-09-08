@@ -6,6 +6,7 @@ namespace App\Infrastructure\Persistence\MySQL\Repository;
 
 use App\Domain\Entity\Category\Category;
 use App\Domain\Entity\Product\Product;
+use App\Domain\Entity\Product\ProductCollection;
 use App\Domain\Entity\Product\ProductNotFound;
 use App\Domain\Service\Repository\ProductRepository;
 use App\Domain\ValueObject\Price\Price;
@@ -44,5 +45,33 @@ final class MysqlProductRepository implements ProductRepository
             id: $data['id'],
             category: $category
         );
+    }
+
+    public function findByCategoryCode(string $categoryCode): ProductCollection
+    {
+        $sql = 'SELECT p.*, c.code as category_code, c.name as category_name 
+                FROM products as p 
+                    INNER JOIN categories as c on c.id = p.category_id 
+                WHERE c.code = :code';
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute(['code' => $categoryCode]);
+        $data = $stmt->fetchAll();
+
+        $productList = new ProductCollection();
+
+        foreach ($data as $product) {
+            $category = new Category(
+                id: $product['category_id'],
+                name: $product['category_name'],
+                code: $product['category_code'],
+            );
+
+            $productList->add(new Product(
+                id: $product['id'],
+                category: $category
+            ));
+        }
+
+        return $productList;
     }
 }
