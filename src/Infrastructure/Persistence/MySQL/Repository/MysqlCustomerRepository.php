@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\Persistence\MySQL\Repository;
 
 use App\Domain\Entity\Customer\Customer;
-use App\Domain\Entity\Customer\CustomerNotFound;
 use App\Domain\Service\Repository\CustomerRepository;
 use App\Domain\ValueObject\Price\Price;
 
@@ -15,10 +14,7 @@ final class MysqlCustomerRepository implements CustomerRepository
     {
     }
 
-    /**
-     * @throws CustomerNotFound
-     */
-    public function findById(int $id): Customer
+    public function findById(int $id): ?Customer
     {
         $sql = 'SELECT * 
                 FROM customers  
@@ -28,7 +24,7 @@ final class MysqlCustomerRepository implements CustomerRepository
         $data = $stmt->fetch();
 
         if ($data === false) {
-            throw CustomerNotFound::withId($id);
+            return null;
         }
 
         return new Customer(

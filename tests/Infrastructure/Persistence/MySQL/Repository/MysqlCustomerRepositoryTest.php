@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Infrastructure\Persistence\MySQL\Repository;
 
 use App\Domain\Entity\Customer\Customer;
-use App\Domain\Entity\Customer\CustomerNotFound;
 use App\Infrastructure\Persistence\MySQL\Repository\MysqlCustomerRepository;
 use App\Tests\IntegrationTest;
 use App\Tests\ObjectMother\CustomerObjectMother;
@@ -23,11 +22,11 @@ class MysqlCustomerRepositoryTest extends IntegrationTest
     }
 
     #[Test]
-    public function findByIdGivenACustomerThatDontExistsThrowsCustomerNotFoundException(): void
+    public function findByIdGivenACustomerThatDontExistsReturnsNullValue(): void
     {
-        $this->expectException(CustomerNotFound::class);
+        $customer = $this->sut->findById(5);
 
-        $this->sut->findById(5);
+        $this->assertNull($customer);
     }
 
     #[Test]

@@ -8,5 +8,5 @@ use App\Domain\Entity\Customer\Customer;
 
 interface CustomerRepository
 {
-    public function findById(int $id): Customer;
+    public function findById(int $id): ?Customer;
 }
