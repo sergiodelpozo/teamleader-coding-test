@@ -21,6 +21,7 @@
   <testsuites>
     <testsuite name="Unit">
       <directory>tests/Domain/</directory>
+      <directory>tests/Application/</directory>
     </testsuite>
 
     <testsuite name="Integration">
