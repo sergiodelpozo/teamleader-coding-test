@@ -13,7 +13,7 @@ use App\Domain\ValueObject\Order\Order;
 use App\Domain\ValueObject\Price\InvalidPrice;
 use App\Domain\ValueObject\Price\Price;
 
-final class DiscountCalculator
+final class DiscountCalculator implements DiscountCalculatorService
 {
     /** @var DiscountRule[] $discountRules */
     private array $discountRules;
