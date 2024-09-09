@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Infrastructure\Persistence\MySQL\Repository;
 
 use App\Domain\Entity\Category\Category;
+use App\Domain\Entity\Product\Exception\ProductNotFound;
 use App\Domain\Entity\Product\Product;
 use App\Domain\Entity\Product\ProductCollection;
-use App\Domain\Entity\Product\ProductNotFound;
 use App\Infrastructure\Persistence\MySQL\Repository\MysqlProductRepository;
 use App\Tests\IntegrationTest;
 use App\Tests\ObjectMother\CategoryObjectMother;

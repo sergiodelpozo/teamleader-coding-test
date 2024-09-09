@@ -9,4 +9,5 @@ enum ProductExceptionCodes : string
     private const string BASE_CODE = '001';
 
     case PRODUCT_NOT_FOUND = self::BASE_CODE . '000';
+    case INVALID_QUANTITY = self::BASE_CODE . '001';
 }
