@@ -48,5 +48,6 @@ $app = AppFactory::create();
 $app->addErrorMiddleware(true, true, true);
 
 $app->get('/healthcheck', HealthCheckController::class);
+$app->post('/discounts', CalculateDiscountController::class);
 
 $app->run();
