@@ -112,6 +112,71 @@ $ curl --request POST \
 }'
 ```
 
+## API Reference
+
+All the API responses are formatted like the following:
+#### Ok response
+
+```json
+{
+  "code": "000000",
+  "message": "OK",
+  "data": {
+      // In data we return the actual response
+  }
+}
+```
+
+#### Error response
+
+```json
+{
+  "code": "001000",
+  "message": "Error message",
+  "data": {
+      // Extra error information
+  }
+}
+```
+
+[Here](docs/response-codes.md) you can see all the API response codes
+
+#### Health check
+
+```http
+  GET /healthcheck
+```
+
+
+#### Calculate discounts
+
+```http
+  POST /discounts
+```
+
+*Request Body*
+
+| Parameter            | Type     | Description                                                     |
+|:---------------------|:---------|:----------------------------------------------------------------|
+| `id`                 | `string` | **Required**. Id of the order                                   |
+| `customer-id`        | `string` | **Required**. Id of the customer                                |
+| `items`              | `array`  | **Required**. An array containing all the products in the order |
+| `items`.`product-id` | `string` | **Required**. Id of the product                                 |
+| `items`.`quantity`   | `int`    | **Required**. Number of items to be bought                      |
+| `items`.`unit-price` | `float`  | **Required**. Price per unit                                    |
+| `items`.`total`      | `float`  | **Required**. Total price without any discounts                 |
+
+*Response*
+
+| Parameter                   | Type     | Description                                     |
+|:----------------------------|:---------|:------------------------------------------------|
+| `id`                        | `string` | Id of the order                                 |
+| `customerId`                | `string` | Id of the customer                              |
+| `originalPrice`             | `float`  | The original price of the order                 |
+| `totalPrice`                | `float`  | The total price after the discounts are applied |
+| `discounts`                 | `array`  | An array containing all the discounts applied   |
+| `discounts`.`discountPrice` | `float`  | The total discounted amount                     |
+| `discounts`.`reason`        | `string` | The reason why the amount is discounted         |
 
 ## Tech Stack
 **Services**
