@@ -34,4 +34,17 @@ final class MysqlCustomerRepository implements CustomerRepository
             revenue: new Price(\floatval($data['revenue'])),
         );
     }
+
+    public function save(Customer $customer): void
+    {
+        $sql = 'REPLACE INTO customers (id, name, register_date, revenue) VALUES (:id, :name, :register_date, :revenue)';
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->execute([
+            'id' => $customer->getId(),
+            'name' => $customer->getName(),
+            'register_date' => $customer->getRegisterDate()->format('Y-m-d H:i:s'),
+            'revenue' => $customer->getRevenue()->getPrice()
+        ]);
+    }
 }

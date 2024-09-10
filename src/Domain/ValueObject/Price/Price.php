@@ -47,8 +47,13 @@ final class Price
     /**
      * @throws InvalidPrice
      */
-    public function subtract(float $number)
+    public function subtract(float $number): self
     {
         return new self($this->price - $number);
+    }
+
+    public function add(float $number): self
+    {
+        return new self($this->price + $number);
     }
 }

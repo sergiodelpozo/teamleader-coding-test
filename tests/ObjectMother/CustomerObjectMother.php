@@ -15,7 +15,7 @@ final class CustomerObjectMother
         $faker = Factory::create();
 
         return new Customer(
-            id: $parameters['id'] ?? $faker->unique()->randomNumber(3),
+            id: \array_key_exists('id', $parameters) ? $parameters['id'] : $faker->unique()->randomNumber(3),
             name: $parameters['name'] ?? $faker->name(),
             registerDate: $parameters['registerDate'] ?? new \DateTimeImmutable($faker->date()),
             revenue: $parameters['revenue'] ?? new Price($faker->randomFloat(2, 0, 5000000)),

@@ -59,6 +59,15 @@ final class PriceTest extends TestCase
         $this->assertEquals($expected, $newPrice->getPrice());
     }
 
+    #[Test]
+    public function addGivenAnyNumberReturnsTheSumOfThePrices(): void
+    {
+        $price = new Price(100);
+        $newPrice = $price->add(50);
+
+        $this->assertEquals(150.0, $newPrice->getPrice());
+    }
+
     public static function pricesDataProvider(): array
     {
         return [

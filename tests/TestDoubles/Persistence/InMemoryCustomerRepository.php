@@ -21,7 +21,7 @@ class InMemoryCustomerRepository implements CustomerRepository
         return $this->customers[$id];
     }
 
-    public function saveCustomer(Customer $customer): void
+    public function save(Customer $customer): void
     {
         $this->customers[$customer->getId()] = $customer;
     }

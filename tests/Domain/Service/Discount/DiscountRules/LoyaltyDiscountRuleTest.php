@@ -24,7 +24,7 @@ class LoyaltyDiscountRuleTest extends TestCase
         ]);
 
         $customerRepository = new InMemoryCustomerRepository();
-        $customerRepository->saveCustomer($customer);
+        $customerRepository->save($customer);
         $sut = new LoyaltyDiscountRule($customerRepository);
 
         $order = new Order(
@@ -52,7 +52,7 @@ class LoyaltyDiscountRuleTest extends TestCase
         ]);
 
         $customerRepository = new InMemoryCustomerRepository();
-        $customerRepository->saveCustomer($customer);
+        $customerRepository->save($customer);
         $sut = new LoyaltyDiscountRule($customerRepository);
 
         $order = new Order(

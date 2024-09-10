@@ -9,14 +9,14 @@ use App\Domain\ValueObject\Price\Price;
 final class Customer
 {
     public function __construct(
-        private readonly int $id,
+        private readonly ?int $id,
         private readonly string $name,
         private readonly \DateTimeImmutable $registerDate,
-        private readonly Price $revenue,
+        private Price $revenue,
     ) {
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -34,5 +34,10 @@ final class Customer
     public function getRevenue(): Price
     {
         return $this->revenue;
+    }
+
+    public function changeRevenue(Price $price): void
+    {
+        $this->revenue = $price;
     }
 }
