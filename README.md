@@ -40,7 +40,6 @@ You can do the installation of the project by running the following the steps:
 **Bootstrap the project**
 
 ```bash
-  cd <path-to-project>
   make init
 ```
 
