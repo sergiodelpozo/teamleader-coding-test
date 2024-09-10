@@ -11,15 +11,18 @@ class CategorySeeder extends AbstractSeed
         $data = [
             [
                 'id' => 1,
-                'name' => 'Tools'
+                'name' => 'Tools',
+                'code' => 'tools'
             ],
             [
                 'id' => 2,
-                'name' => 'Switches'
+                'name' => 'Switches',
+                'code' => 'switch'
             ],
             [
                 'id' => 3,
-                'name' => 'Other'
+                'name' => 'Other',
+                'code' => 'other'
             ]
         ];
 
