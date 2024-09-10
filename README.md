@@ -1,27 +1,133 @@
-# Coding Test
+# Discounts Tech test
 
-Do you want to join the engineering team at [Teamleader](https://www.teamleader.eu/company/engineering)?
+This is a test project to calculate the discounts to be applied to an order based on the defined rules.
 
-We have created this exercise in order to gain insights into your development skills.
+## Features
 
-## What to do?
+[Here](1-discounts.md) you can find the product requirements for this API
+- This test has two endpoints:
+    1. GET /healtcheck: An endpoint ot verify that the web api is up and running
+    2. POST /discounts: An endpoint that given an order request applies the discounts based on the business logic rules
+- A basic set of data has been added to the database on the initialization of the project, in order to test the api
 
-We have several problems to solve. Our recruiter would have normally told you which one(s) to solve.
+## Requirements
 
-You are free to use whatever technologies you want, unless instructed otherwise.
+### Docker & docker-compose
+Docker and docker-compose needs to be installed in your machine.
+You can follow the official guides for [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
 
-- [Problem 1 : Discounts](./1-discounts.md)
-- [Problem 2 : Ordering](./2-ordering.md)
-- [Problem 3 : Local development](./3-local-development.md)
+## Environment Variables
 
-## Procedure
+This project uses an .env file, that should not change, but maybe you need to change that file to modify de `USERID` variable to be able to run the project..
 
-We would like you to send us (a link to) a git repository (that we can access).  
 
-Make sure to add some documentation on how to run your app.
+## Installation
 
-There is no time limit on this exercise, take as long as you need to show us your development skills.
+You can do the installation of the project by running the following the steps:
 
-## Problems?
+**Clone the project**
 
-Feel free to contact us if something is not clear.
+```bash
+  git clone https://github.com/sergiodelpozo/teamleader-coding-test
+```
+
+**Go to the project directory**
+
+```bash
+  cd <path-to-cloned-project>
+```
+
+**Bootstrap the project**
+
+```bash
+  cd <path-to-project>
+  make init
+```
+
+## Running Tests
+
+To run tests, run the following command
+
+**Unit tests:**
+
+```bash
+  make tests
+```
+
+**Integration tests:**
+
+```bash
+  make tests-integration
+```
+
+
+**All tests:**
+
+```bash
+  make tests-all
+```
+
+
+## Run Locally
+
+Clone the project
+
+**Start the server**
+
+```bash
+  make start
+```
+
+This command will start a web server on the 8080 port with a database service using the 3306 port.
+
+Then, to verify that the api is up and running:
+
+```bash
+$ curl --request GET --url http://localhost:8080/healthcheck
+OK
+```
+
+To test the API, you can use an example from the folder *example-order*:
+
+```bash
+$ curl --request POST \
+  --url http://localhost:8080/discounts \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "id": "1",
+  "customer-id": "2",
+  "items": [
+    {
+      "product-id": "A101",
+      "quantity": "1",
+      "unit-price": "9.75",
+      "total": "19.50"
+    },
+    {
+      "product-id": "A102",
+      "quantity": "6",
+      "unit-price": "10.50",
+      "total": "63.00"
+    }
+  ]
+}'
+```
+
+
+## Tech Stack
+**Services**
+- [PHP 8.3](https://www.php.net/releases/8.3/en.php)
+- [MySQL 8.4](https://dev.mysql.com/doc/relnotes/mysql/8.4/en/)
+  **Framework**
+- [Slim](https://www.slimframework.com/) - The framework used in this api
+  **External dependencies**
+- [Phinx](https://phinx.org/) - Library to manage the migrations of the DB
+- [PHP DotEnv](https://github.com/vlucas/phpdotenv) - Library to manage the environment variables
+- [PHP DI](https://php-di.org/) - Library to manage the injection of the dependencies
+- [PHPUnit](https://phpunit.de/index.html) - Testing framework
+- [PHP Faker](https://fakerphp.org/) - Library to generate fake data for the tests
+
+
+## Authors
+
+- [@sergiodelpozo](https://github.com/sergiodelpozo)
