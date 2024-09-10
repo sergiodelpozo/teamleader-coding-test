@@ -31,16 +31,19 @@ final class DiscountCalculator implements DiscountCalculatorService
 
         foreach ($this->discountRules as $discountRule) {
             $discountResult = $discountRule->calculate($order);
-            $rulesDiscounts[] = $this->calculateTotalPrice(
+            $discount = $this->calculateTotalPrice(
                 $discountResult,
                 $totalPrice,
                 $originalPrice,
             );
+            if (!empty($discount)) {
+                $rulesDiscounts[] = $discount;
+            }
         }
 
         return  [
-            'originalPrice' => $originalPrice->getPrice(),
-            'totalPrice' => $totalPrice->getPrice(),
+            'originalPrice' => \number_format($originalPrice->getPrice(), 2),
+            'totalPrice' => \number_format($totalPrice->getPrice(), 2),
             'discounts' => $rulesDiscounts
         ];
     }
@@ -93,7 +96,7 @@ final class DiscountCalculator implements DiscountCalculatorService
                 $totalPrice = new Price(0);
             } finally {
                 $ruleDiscounts = [
-                    'discountedPrice' => $discountedAmount,
+                    'discountedPrice' => \number_format($discountedAmount, 2),
                     'reason' => $discountResult->getReason(),
                 ];
             }
