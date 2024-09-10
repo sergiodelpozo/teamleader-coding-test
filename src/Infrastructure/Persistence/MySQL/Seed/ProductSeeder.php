@@ -19,22 +19,18 @@ class ProductSeeder extends AbstractSeed
             [
                 'id' => 'A101',
                 'category_id' => 1,
-                'unit_price' => 19.50
             ],
             [
                 'id' => 'A102',
                 'category_id' => 2,
-                'unit_price' => 49.50
             ],
             [
                 'id' => 'A103',
                 'category_id' => 2,
-                'unit_price' => 20.50
             ],
             [
                 'id' => 'A104',
                 'category_id' => 1,
-                'unit_price' => 15
             ]
         ];
 
